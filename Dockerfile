@@ -14,7 +14,7 @@ RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
 COPY ./conf/startup.sh /startup.sh
-COPY ./conf/my.cnf /etc/mysql/my.cnf
+COPY ./conf/.my.cnf /root/
 
 EXPOSE 3306
 CMD ["/startup.sh"]
