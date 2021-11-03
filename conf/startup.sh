@@ -34,8 +34,11 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '';
 EOF
 
   if [ "$MYSQL_DATABASE" != "" ]; then
+    MYSQL_CHARACTER_SET=${MYSQL_CHARACTER_SET:+"CHARACTER SET $MYSQL_CHARACTER_SET"}
+    MYSQL_COLLATE=${MYSQL_COLLATE:+"COLLATE $MYSQL_COLLATE"}
+
     echo "[i] Creating database: $MYSQL_DATABASE"
-    echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET utf8mb4 COLLATE utf8_general_ci;" >> $tfile
+    echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` $MYSQL_CHARACTER_SET $MYSQL_COLLATE;" >> $tfile
 
     if [ "$MYSQL_USER" != "" ]; then
       echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
