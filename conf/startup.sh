@@ -48,4 +48,4 @@ EOF
 fi
 
 
-exec /usr/bin/mysqld --user=root --console --default-authentication-plugin=mysql_native_password
+exec /usr/bin/mysqld --user=root --console
