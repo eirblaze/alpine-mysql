@@ -8,7 +8,7 @@ FROM alpine:3.14
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
-VOLUME /app
+# VOLUME /app
 
 RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
