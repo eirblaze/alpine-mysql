@@ -5,9 +5,6 @@ RUN apk update && apk add tzdata
 
 FROM alpine:3.14
 
-
-# mysql config
-COPY ./conf/.my.cnf /root/.my.cnf
 # time zone. check: $ date
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
@@ -37,6 +34,9 @@ RUN mkdir -p /run/mysqld; \
 WORKDIR /app
 VOLUME /app
 EXPOSE 3306
+
+# mysql config
+COPY ./conf/.my.cnf /etc/my.cnf.d/zzz-my.cnf
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
 COPY ./conf/db-init.sh /root/db-init.sh
