@@ -59,4 +59,4 @@ EOF
 # exec /usr/bin/mysqld --user=root --console
 
 # -n, --nodaemon	Run supervisord in the foreground.
-exec supervisord -n
+# exec supervisord -n

@@ -43,6 +43,6 @@ COPY ./conf/db-init.sh /root/db-init.sh
 
 # ENTRYPOINTはデフォルトでシェル、CMDはその引数でしかない、ってこと？CMDは、docker-compose側の command: でも指定可能。
 # Dockerのコンソールにどれが映るかも要検証。
-CMD ["/root/db-init.sh"]
-# CMD ["supervisord", "-n"]
+# CMD ["/root/db-init.sh"]
+CMD ["supervisord", "-n"]
 
