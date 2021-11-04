@@ -13,8 +13,10 @@ VOLUME /app
 RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
-COPY ./conf/startup.sh /startup.sh
+COPY ./conf/db-init.sh /root/db-init.sh
 COPY ./conf/my.cnf /etc/mysql/my.cnf
 
 EXPOSE 3306
-CMD ["/startup.sh"]
+
+# ENTRYPOINTはデフォルトでシェル、CMDはその引数でしかない、ってこと？CMDは、docker-compose側の command: でも指定可能。
+CMD ["/root/db-init.sh"]
