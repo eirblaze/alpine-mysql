@@ -34,7 +34,6 @@ USE mysql;
 FLUSH PRIVILEGES;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-ALTER USER 'root'@'localhost' IDENTIFIED BY '';
 EOF
 
   if [ "$MYSQL_DATABASE" != "" ]; then
@@ -46,9 +45,12 @@ EOF
 
     if [ "$MYSQL_USER" != "" ]; then
       echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
+      echo "alter user '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" >> $tfile
       echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
     fi
   fi
+
+  echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" >> $tfile
 
   cat $tfile
   # /usr/bin/mysqld --user=root --bootstrap --verbose=1 < $tfile
