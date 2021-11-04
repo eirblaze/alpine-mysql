@@ -82,3 +82,8 @@ exec /usr/bin/mysqld --user=root --console
 
 # -n, --nodaemon	Run supervisord in the foreground.
 # exec supervisord -n
+
+# memo
+# [B.3.2.2 [ローカル] MySQLサーバーに接続できません](https://dev.mysql.com/doc/refman/8.0/en/can-not-connect-to-server.html)
+# ホスト名を指定しない場合、または特別なホスト名を指定する場合は、Unixソケットファイルが使用されます
+
