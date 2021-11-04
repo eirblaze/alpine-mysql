@@ -7,7 +7,7 @@
 #     sleep 3
 # done
 
-if (mysqladmin -u root  -pwordpress ping -h localhost --silent) then
+if (mysqladmin -u root -p"$MYSQL_ROOT_PASSWORD" ping -h localhost --silent) then
 # if [ -d /app/mysql ]; then
   echo "[i] MySQL is alive. skipping setup."
   return 0
