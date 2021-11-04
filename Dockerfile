@@ -21,6 +21,7 @@ RUN mkdir -p /run/mysqld; \
     mysql \
     mysql-client \
     supervisor \
+    supervisor-stdout \
   ; \
   # rm -f /var/cache/apk/*; \
   /usr/bin/mysql_install_db \
