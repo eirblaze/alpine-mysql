@@ -53,8 +53,12 @@ EOF
   echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" >> $tfile
 
   cat $tfile
-  # /usr/bin/mysqld --user=root --bootstrap --verbose=1 < $tfile
+  /usr/bin/mysqld --user=root --bootstrap --verbose=1 < $tfile
+  # mysql –u username –p new_db_name < dump_file.sql
+  # mysql --user=root < $tfile
   rm -f $tfile
+
+  # mysqladmin password "$MYSQL_ROOT_PASSWORD"
 # fi
 
 
