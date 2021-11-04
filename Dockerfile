@@ -21,14 +21,14 @@ RUN mkdir -p /run/mysqld; \
     mysql \
     mysql-client \
     supervisor \
-  ; \
-  (/usr/bin/mysqld_safe --user=root --console &); \
+  ;
   # rm -f /var/cache/apk/*; \
 RUN /usr/bin/mysql_install_db \
     --datadir=/app/mysql/ \
     --defaults-file=~/.my.cnf \
     --user=mysql \
   ;
+RUN (/usr/bin/mysqld_safe --user=root --console &); \
   sleep 3;
 
 WORKDIR /app
