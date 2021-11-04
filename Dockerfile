@@ -14,9 +14,9 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # supervisor
 COPY ./conf/supervisord.conf /etc/supervisord.conf
 
-RUN mkdir -p --ignore-fail-on-non-empty /run/mysqld; \
 # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
 # ソケット用ディレクトリ: /run/mysqld
+RUN mkdir -p /run/mysqld; \
   apk add --update --no-cache \
     mysql \
     mysql-client \
