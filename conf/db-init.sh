@@ -80,6 +80,7 @@ rm -f $tfile
 # mysqladmin password "$MYSQL_ROOT_PASSWORD"
 
 # exec /usr/bin/mysqld --user=root --console --port=3306
+exec /usr/bin/mysqld_safe --user=root --console
 
 # -n, --nodaemon	Run supervisord in the foreground.
 # exec supervisord -n
