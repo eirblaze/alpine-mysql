@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if [ ! -d "/run/mysqld" ]; then
-  mkdir -p /run/mysqld
-fi
-
 # [Docker Compose でMySQLが起動するまで待つ](https://qiita.com/ry0f/items/6e29fa9f689b97058085)
 # TIMEOUT_SEC=30
 until mysqladmin ping -h mysql_host --silent; do

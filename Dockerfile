@@ -11,7 +11,8 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # mysql config
 COPY ./conf/.my.cnf /root/.my.cnf
 
-RUN apk add --update --no-cache \
+RUN mkdir -p --ignore-fail-on-non-empty /run/mysqld; \
+  apk add --update --no-cache \
     mysql \
     mysql-client \
   ; \
