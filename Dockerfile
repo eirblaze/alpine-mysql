@@ -9,7 +9,7 @@ FROM alpine:3.14
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # supervisor
-COPY ./conf/supervisord.conf /etc/supervisord.conf
+# COPY ./conf/supervisord.conf /etc/supervisord.conf
 
 # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
 # ソケット用ディレクトリ: /run/mysqld
