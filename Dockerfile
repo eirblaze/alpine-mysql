@@ -5,6 +5,7 @@ RUN apk update && apk add tzdata
 
 FROM alpine:3.14
 
+# time zone. check: $ date
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
