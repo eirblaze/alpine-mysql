@@ -2,7 +2,7 @@
 
 # [Docker Compose でMySQLが起動するまで待つ](https://qiita.com/ry0f/items/6e29fa9f689b97058085)
 # TIMEOUT_SEC=30
-until mysqladmin ping -h mysql_host --silent; do
+until mysqladmin ping -h localhost --silent; do
     echo '[i] waiting for mysqld to be connectable...'
     sleep 3
 done
