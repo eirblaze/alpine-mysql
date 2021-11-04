@@ -13,7 +13,8 @@ VOLUME /app
 # mysql config
 COPY ./conf/.my.cnf /root/.my.cnf
 
-RUN apk add --update --no-cache \
+RUN mkdir /app/mysql; \
+  apk add --update --no-cache \
     mysql \
     mysql-client \
   ; \
