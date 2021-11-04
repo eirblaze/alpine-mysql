@@ -69,6 +69,7 @@ if [ "$MYSQL_DATABASE" != "" ]; then
 fi
 
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" >> $tfile
+# FLUSH PRIVILEGES;
 
 cat $tfile
 /usr/bin/mysqld --user=root --bootstrap --verbose=1 < $tfile
