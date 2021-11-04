@@ -5,11 +5,11 @@ RUN apk update && apk add tzdata
 
 FROM alpine:3.14
 
-# time zone. check: $ date
-COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # mysql config
 COPY ./conf/.my.cnf /root/.my.cnf
+# time zone. check: $ date
+COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # supervisor
 COPY ./conf/supervisord.conf /etc/supervisord.conf
