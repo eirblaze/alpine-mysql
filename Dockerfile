@@ -11,10 +11,14 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # mysql config
 COPY ./conf/.my.cnf /root/.my.cnf
 
+# supervisor
+COPY ./conf/supervisord.conf /etc/supervisord.conf
+
 RUN mkdir -p --ignore-fail-on-non-empty /run/mysqld; \
   apk add --update --no-cache \
     mysql \
     mysql-client \
+    supervisor \
   ; \
   rm -f /var/cache/apk/*; \
   # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
@@ -29,4 +33,6 @@ EXPOSE 3306
 COPY ./conf/db-init.sh /root/db-init.sh
 
 # ENTRYPOINTはデフォルトでシェル、CMDはその引数でしかない、ってこと？CMDは、docker-compose側の command: でも指定可能。
-CMD ["/root/db-init.sh"]
+# CMD ["/root/db-init.sh"]
+CMD ["supervisord", "-n"]
+
