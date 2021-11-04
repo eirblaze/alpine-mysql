@@ -22,7 +22,8 @@ fi
 
   tfile=`mktemp`
   if [ ! -f "$tfile" ]; then
-      return 1
+    echo "[x] mktemp error."
+    return 1
   fi
 
   cat << EOF > $tfile
