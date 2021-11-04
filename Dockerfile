@@ -28,8 +28,10 @@ RUN mkdir -p /run/mysqld; \
     --defaults-file=~/.my.cnf \
     --user=mysql \
   ; \
-  (/usr/bin/mysqld_safe --user=root --console &); \
-  sleep 3;
+  (/usr/bin/mysqld_safe --user=root --console &);
+
+# HEALTHCHECK --interval=5s --timeout=3s CMD mysql --host=127.0.0.1 --silent --execute "SELECT 1;" || exit 1
+# HEALTHCHECK --interval=5s --timeout=3s CMD mysqladmin ping -h localhost --silent || exit 1
 
 WORKDIR /app
 VOLUME /app
