@@ -27,6 +27,7 @@ RUN mkdir -p /run/mysqld; \
     --datadir=/app/mysql/ \
     --defaults-file=~/.my.cnf \
     --user=mysql \
+    --socket=/run/mysqld/mysqld.sock \
   ; \
   (/usr/bin/mysqld_safe --user=root --console &);
 
