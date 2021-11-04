@@ -17,6 +17,13 @@ echo "[i] MySQL data directory not found, creating initial DBs"
 
 # /usr/bin/mysql_install_db --user=root > /dev/null
 
+/usr/bin/mysql_install_db \
+  --datadir=/app/mysql/ \
+  --defaults-file=/etc/my.cnf \
+  --user=root \
+  --socket=/run/mysqld/mysqld.sock \
+;
+
 if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
   MYSQL_ROOT_PASSWORD=111111
   echo "[i] MySQL root Password: $MYSQL_ROOT_PASSWORD"

@@ -18,14 +18,14 @@ RUN mkdir -p /run/mysqld; \
     mysql \
     mysql-client \
     # supervisor \
-  ; \
-  # rm -f /var/cache/apk/*; \
-  /usr/bin/mysql_install_db \
-    --datadir=/app/mysql/ \
-    --defaults-file=~/.my.cnf \
-    --user=mysql \
-    --socket=/run/mysqld/mysqld.sock \
   ;
+  # rm -f /var/cache/apk/*; \
+  # /usr/bin/mysql_install_db \
+  #   --datadir=/app/mysql/ \
+  #   --defaults-file=~/.my.cnf \
+  #   --user=mysql \
+  #   --socket=/run/mysqld/mysqld.sock \
+  # ;
   # (/usr/bin/mysqld_safe --user=root --console &);
 
 # HEALTHCHECK --interval=5s --timeout=3s CMD mysql --host=127.0.0.1 --silent --execute "SELECT 1;" || exit 1
