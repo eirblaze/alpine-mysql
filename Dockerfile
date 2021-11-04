@@ -15,13 +15,14 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 COPY ./conf/supervisord.conf /etc/supervisord.conf
 
 RUN mkdir -p --ignore-fail-on-non-empty /run/mysqld; \
+# [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
+# ソケット用ディレクトリ: /run/mysqld
   apk add --update --no-cache \
     mysql \
     mysql-client \
     supervisor \
   ; \
   rm -f /var/cache/apk/*; \
-  # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
   (/usr/bin/mysqld_safe --user=root --console &); \
 RUN /usr/bin/mysql_install_db \
     --datadir=/app/mysql/ \
