@@ -5,9 +5,16 @@ RUN apk update && apk add tzdata
 
 FROM alpine:3.14
 
+# mysql user
+RUN mkdir -p /app/mysql-user; \
+  adduser -h /app/mysql-user mysql; \
+  addgroup mysql; \
+  addgroup mysql mysql; \
+  chown -R mysql:mysql /app;
 
 # mysql config
-COPY ./conf/.my.cnf /root/.my.cnf
+COPY --chown=mysql:mysql ./conf/.my.cnf /app/mysql-user/.my.cnf
+
 # time zone. check: $ date
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
@@ -17,12 +24,15 @@ COPY ./conf/supervisord.conf /etc/supervisord.conf
 # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
 # ソケット用ディレクトリ: /run/mysqld
 RUN mkdir -p /run/mysqld; \
+  chown mysql:mysql /run/mysqld; \
   apk add --update --no-cache \
     mysql \
     mysql-client \
     supervisor \
   ;
   # rm -f /var/cache/apk/*; \
+
+USER mysql:mysql
 RUN /usr/bin/mysql_install_db \
     --datadir=/app/mysql/ \
     --defaults-file=~/.my.cnf \
@@ -32,14 +42,14 @@ RUN (/usr/bin/mysqld_safe --user=root --console &); \
   sleep 3;
 
 WORKDIR /app
-VOLUME /app
+VOLUME /app/mysql
 EXPOSE 3306
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
-COPY ./conf/db-init.sh /root/db-init.sh
+COPY --chown=mysql:mysql ./conf/db-init.sh /app/mysql-user/db-init.sh
 
 # ENTRYPOINTはデフォルトでシェル、CMDはその引数でしかない、ってこと？CMDは、docker-compose側の command: でも指定可能。
 # Dockerのコンソールにどれが映るかも要検証。
-# CMD ["/root/db-init.sh"]
+# CMD ["/app/mysql-user/db-init.sh"]
 CMD ["supervisord", "-n"]
 
