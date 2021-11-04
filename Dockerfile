@@ -10,7 +10,14 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 WORKDIR /app
 VOLUME /app
 
-RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
+RUN apk add --update --no-cache \
+    mysql \
+    mysql-client \
+  ; \
+  rm -f /var/cache/apk/*; \
+  # [DockerでMySQLを起動するDockerfileを書いてみた](https://hidemium.hatenablog.com/entry/2014/05/23/070000)
+  (/usr/bin/mysqld_safe &); \
+  sleep 3;
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
 COPY ./conf/db-init.sh /root/db-init.sh

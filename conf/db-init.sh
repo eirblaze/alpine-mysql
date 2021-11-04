@@ -52,4 +52,4 @@ EOF
 # fi
 
 
-exec /usr/bin/mysqld --user=root --console
+# exec /usr/bin/mysqld --user=root --console
