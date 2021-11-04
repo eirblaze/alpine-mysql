@@ -9,6 +9,8 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 WORKDIR /app
 VOLUME /app
+# mysql config
+COPY ./conf/.my.cnf /root/.my.cnf
 
 RUN apk add --update --no-cache \
     mysql \
@@ -21,7 +23,6 @@ RUN apk add --update --no-cache \
 
 # These lines moved to the end allow us to rebuild image quickly after only these files were modified.
 COPY ./conf/db-init.sh /root/db-init.sh
-COPY ./conf/my.cnf /etc/mysql/my.cnf
 
 EXPOSE 3306
 
