@@ -7,10 +7,11 @@
 #     sleep 3
 # done
 
+if (mysqladmin -u root  -pwordpress ping -h localhost --silent) then
 # if [ -d /app/mysql ]; then
-  # echo "[i] MySQL directory already present, skipping creation"
-# else
-  echo "[i] MySQL data directory not found, creating initial DBs"
+  echo "[i] MySQL is alive. skipping setup."
+  return 0
+fi
 
   # /usr/bin/mysql_install_db --user=root > /dev/null
 
