@@ -4,9 +4,9 @@ if [ ! -d "/run/mysqld" ]; then
   mkdir -p /run/mysqld
 fi
 
-if [ -d /app/mysql ]; then
-  echo "[i] MySQL directory already present, skipping creation"
-else
+# if [ -d /app/mysql ]; then
+  # echo "[i] MySQL directory already present, skipping creation"
+# else
   echo "[i] MySQL data directory not found, creating initial DBs"
 
   mysql_install_db --user=root > /dev/null
@@ -46,9 +46,10 @@ EOF
     fi
   fi
 
-  /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
+  cat $tfile
+  # /usr/bin/mysqld --user=root --bootstrap --verbose=1 < $tfile
   rm -f $tfile
-fi
+# fi
 
 
 exec /usr/bin/mysqld --user=root --console
