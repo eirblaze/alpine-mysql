@@ -20,7 +20,7 @@ RUN mkdir -p /run/mysqld; \
   apk add --update --no-cache \
     mysql \
     mysql-client \
-    supervisor \
+    # supervisor \
   ; \
   # rm -f /var/cache/apk/*; \
   /usr/bin/mysql_install_db \
@@ -28,8 +28,8 @@ RUN mkdir -p /run/mysqld; \
     --defaults-file=~/.my.cnf \
     --user=mysql \
     --socket=/run/mysqld/mysqld.sock \
-  ; \
-  (/usr/bin/mysqld_safe --user=root --console &);
+  ;
+  # (/usr/bin/mysqld_safe --user=root --console &);
 
 # HEALTHCHECK --interval=5s --timeout=3s CMD mysql --host=127.0.0.1 --silent --execute "SELECT 1;" || exit 1
 # HEALTHCHECK --interval=5s --timeout=3s CMD mysqladmin ping -h localhost --silent || exit 1
