@@ -89,3 +89,7 @@ exec /usr/bin/mysqld_safe --user=root --console
 # [B.3.2.2 [ローカル] MySQLサーバーに接続できません](https://dev.mysql.com/doc/refman/8.0/en/can-not-connect-to-server.html)
 # ホスト名を指定しない場合、または特別なホスト名を指定する場合は、Unixソケットファイルが使用されます
 
+# refresh
+# docker cp .\docker\alpine-mysql\conf\db-init.sh wp_qs_test_db:/root/db-init.sh
+# docker-compose exec database  tail /root/db-init.sh
+# restart docker container
