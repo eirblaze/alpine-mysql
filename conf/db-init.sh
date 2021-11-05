@@ -10,8 +10,7 @@
 if (mysqladmin -u root -p"$MYSQL_ROOT_PASSWORD" ping -h localhost --silent) then
 # if [ -d /app/mysql ]; then
   echo "[i] MySQL is alive. skipping setup."
-  return 0
-fi
+else
 
 echo "[i] MySQL data directory not found, creating initial DBs"
 
@@ -76,6 +75,7 @@ cat $tfile
 # mysql –u username –p new_db_name < dump_file.sql
 # mysql --user=root < $tfile
 rm -f $tfile
+fi
 
 # mysqladmin password "$MYSQL_ROOT_PASSWORD"
 
