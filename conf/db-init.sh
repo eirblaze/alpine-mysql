@@ -79,8 +79,11 @@ fi
 
 # mysqladmin password "$MYSQL_ROOT_PASSWORD"
 
-exec /usr/bin/mysqld --user=root --console --extra-port=3306
+# exec /usr/bin/mysqld --user=root --console --extra-port=3306
 # exec /usr/bin/mysqld_safe --user=root --log-error=/dev/stdout --extra-port=3306
+
+# CMD の内容が飛んでくる
+exec "$@"
 
 # -n, --nodaemon	Run supervisord in the foreground.
 # exec supervisord -n
