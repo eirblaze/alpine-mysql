@@ -48,21 +48,23 @@ EOF
 if [ "$MYSQL_DATABASE" != "" ]; then
   MYSQL_CHARACTER_SET=${MYSQL_CHARACTER_SET:+"CHARACTER SET $MYSQL_CHARACTER_SET"}
   MYSQL_COLLATE=${MYSQL_COLLATE:+"COLLATE $MYSQL_COLLATE"}
+  # localhost には ソケットからのアクセスも含まれる。 % だけではソケット経由で接続できない
 
   echo "[i] Creating database: $MYSQL_DATABASE"
   echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` $MYSQL_CHARACTER_SET $MYSQL_COLLATE;" >> $tfile
 
-  if [ "$MYSQL_USER" != "" ]; then
-    echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
-    # echo "CREATE user '$MYSQL_USER'@'::1' identified by '$MYSQL_PASSWORD';" >> $tfile
-    # echo "CREATE user '$MYSQL_USER'@'127.0.0.1' identified by '$MYSQL_PASSWORD';" >> $tfile
-    # echo "CREATE user '$MYSQL_USER'@'localhost' identified by '$MYSQL_PASSWORD';" >> $tfile
-    echo "CREATE user '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" >> $tfile
-    if [ "$MYSQL_DATABASE" != "" ]; then
-      # echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'::1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
-      # echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'127.0.0.1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
-      # echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
-      echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+    if [ "$MYSQL_USER" != "" ]; then
+      echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
+      # echo "CREATE user '$MYSQL_USER'@'::1' identified by '$MYSQL_PASSWORD';" >> $tfile
+      # echo "CREATE user '$MYSQL_USER'@'127.0.0.1' identified by '$MYSQL_PASSWORD';" >> $tfile
+      echo "CREATE user '$MYSQL_USER'@'localhost' identified by '$MYSQL_PASSWORD';" >> $tfile
+      echo "CREATE user '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" >> $tfile
+      if [ "$MYSQL_DATABASE" != "" ]; then
+        # echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'::1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+        # echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'127.0.0.1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+        echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+        echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+      fi
     fi
   fi
 fi
