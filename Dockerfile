@@ -42,7 +42,13 @@ COPY ./conf/.my.cnf /etc/my.cnf.d/zzz-my.cnf
 COPY ./conf/db-init.sh /root/db-init.sh
 
 # ENTRYPOINTはデフォルトでシェル、CMDはその引数でしかない、ってこと？CMDは、docker-compose側の command: でも指定可能。
+# だから entrypoint.sh の最後に exec "$@" があるのか
 # Dockerのコンソールにどれが映るかも要検証。
-CMD ["/root/db-init.sh"]
+# CMD のプロセスが終了するとDockerコンテナも終了する
+# ログは CMD のフォアグラウンドしか映さない
+
+ENTRYPOINT ["/root/db-init.sh"]
+CMD ["mysqld"]
 # CMD ["supervisord", "-n"]
+# CMD ["ash"]
 
